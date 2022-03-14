@@ -12,7 +12,7 @@ app.use(express.json());
 app.post('/login', validateUser, loginController.login);
 
 app.post('/user', validateUser, userController.createUser);
-app.get('/user', validateJWT, userController.getUsers);
+app.get('/user', validateJWT, userController.getAllUsers);
 app.get('/user/:id', validateJWT, userController.getUser);
 
 app.post('/categories', validateJWT, categoryController.createCategory);
