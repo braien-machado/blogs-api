@@ -16,6 +16,7 @@ app.get('/user', validateJWT, userController.getUsers);
 app.get('/user/:id', validateJWT, userController.getUser);
 
 app.post('/categories', validateJWT, categoryController.createCategory);
+app.get('/categories', validateJWT, categoryController.getAllCategories);
 
 app.use(errorHandler);
 

@@ -6,6 +6,12 @@ const createCategory = async (newCategoryInfo) => {
   return newCategory;
 };
 
+const getAllCategories = async () => {
+  const categories = await Category.findAll();
+
+  return categories;
+};
+
 const getCategoryByParam = async (column, value) => {
   const category = await Category.findOne({ where: { [column]: value } });
   
@@ -16,4 +22,5 @@ const getCategoryByParam = async (column, value) => {
 module.exports = {
   createCategory,
   getCategoryByParam,
+  getAllCategories,
 };
