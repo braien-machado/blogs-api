@@ -15,10 +15,9 @@ module.exports = async (req, _res, next) => {
     const userAlreadyRegistered = await User.findByEmail(email);
 
     if (userAlreadyRegistered) {
-      error.message = 'User already registered';
-      error.code = 400;
+      const err = { message: 'User already registered', code: 400 };
 
-      next(error);
+      next(err);
     }
     return next();
   }
