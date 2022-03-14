@@ -1,27 +1,31 @@
 const Joi = require('joi');
-const User = require('../services/User');
+const { findByEmail } = require('../services/User');
 
 const schema = Joi.object({
   displayName: Joi.string().min(8),
   email: Joi.string().email({ minDomainSegments: 1 }).required(),
-  password: Joi.string().min(6).required(),
+  password: Joi.string().length(6).required(),
 });
 
 module.exports = async (req, _res, next) => {
-  const { displayName, email, password } = req.body;
-  const { error } = schema.validate({ displayName, email, password });
+  try {
+    const { displayName, email, password } = req.body;
+    const { error } = schema.validate({ displayName, email, password });
 
-  if (!error) {
-    const userAlreadyRegistered = await User.findByEmail(email);
+    if (!error) {
+      const userAlreadyRegistered = await findByEmail(email);
 
-    if (userAlreadyRegistered) {
-      const err = { message: 'User already registered', code: 400 };
+      if (userAlreadyRegistered) {
+        const err = { message: 'User already registered', code: 409 };
 
-      next(err);
+        next(err);
+      }
+      return next();
     }
-    return next();
+    error.code = 400;
+    
+    next(error);
+  } catch (error) {
+    next(error);
   }
-
-  error.code = 400;
-  next(error);
 };
