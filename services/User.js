@@ -4,10 +4,16 @@ const { User } = require('../models');
 
 const secret = process.env.JWT_SECRET;
 
-const getUserByParam = async (param, email) => {
-  const user = await User.findAll({ where: { [param]: email } });
+const getAllUsers = async () => {
+  const users = await User.findAll();
 
-  if (user.length > 0) return user[0].dataValues;
+  return users;
+};
+
+const getUserByParam = async (param, email) => {
+  const user = await User.findOne({ where: { [param]: email } });
+  
+  if (user) return user.dataValues;
   return {};
 };
 
@@ -43,4 +49,5 @@ module.exports = {
   getUserByParam,
   createUser,
   generateToken,
+  getAllUsers,
 };
