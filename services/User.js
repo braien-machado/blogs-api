@@ -1,13 +1,14 @@
 const jwt = require('jsonwebtoken');
+const Joi = require('joi');
 const { User } = require('../models');
 
 const secret = process.env.JWT_SECRET;
 
-const findByEmail = async (email) => {
-  const user = await User.findAll({ where: { email } });
+const getUserByParam = async (param, email) => {
+  const user = await User.findAll({ where: { [param]: email } });
 
-  if (user.length > 0) return true;
-  return false;
+  if (user.length > 0) return user[0].dataValues;
+  return {};
 };
 
 const createUser = async (newUserInfo) => {
@@ -27,8 +28,19 @@ const generateToken = (data) => {
   return token;
 };
 
+const validateUser = (object) => {
+  const schema = Joi.object({
+    displayName: Joi.string().min(8),
+    email: Joi.string().email({ minDomainSegments: 1 }).required(),
+    password: Joi.string().length(6).required(),
+  });
+
+  return schema.validate(object);
+};
+
 module.exports = {
-  findByEmail,
+  validateUser,
+  getUserByParam,
   createUser,
   generateToken,
 };
