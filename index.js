@@ -3,10 +3,12 @@ const express = require('express');
 const userController = require('./controllers/User');
 const loginController = require('./controllers/Login');
 const { validateUser, errorHandler } = require('./middlewares');
+const validateJWT = require('./auth/validateJWT');
 
 const app = express();
 app.use(express.json());
 
+app.get('/user', validateJWT, userController.getUsers);
 app.post('/user', validateUser, userController.createUser);
 app.post('/login', validateUser, loginController.login);
 
