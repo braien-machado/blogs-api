@@ -1,14 +1,16 @@
 const express = require('express');
 
 const userController = require('./controllers/User');
-const middlewares = require('./middlewares');
+const loginController = require('./controllers/Login');
+const { validateUser, errorHandler } = require('./middlewares');
 
 const app = express();
 app.use(express.json());
 
-app.post('/user', middlewares.validateNewUser, userController.createUser);
+app.post('/user', validateUser, userController.createUser);
+app.post('/login', validateUser, loginController.login);
 
-app.use(middlewares.errorHandler);
+app.use(errorHandler);
 
 app.listen(3000, () => console.log('ouvindo porta 3000!'));
 
