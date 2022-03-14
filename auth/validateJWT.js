@@ -11,11 +11,9 @@ module.exports = async (req, res, next) => {
     if (!token) return res.status(401).json({ message: 'Token not found' });
 
     const decoded = jwt.verify(token, secret);
-    console.log(decoded.data);
 
     const user = await User.findOne({ where: {
-      email: decoded.data.email,
-      password: decoded.data.password,
+      id: decoded.data.id,
     } });
 
     if (!user) return res.status(401).json({ message: 'Expired or invalid token' });
