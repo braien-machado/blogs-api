@@ -6,7 +6,7 @@ const createUser = async (req, res, next) => {
 
     const userAlreadyRegistered = await User.getUserByParam('email', email);
     
-    if (Object.keys(userAlreadyRegistered).length) {
+    if (userAlreadyRegistered.id) {
       const err = { message: 'User already registered', code: 409 };
 
       return next(err);
@@ -16,6 +16,19 @@ const createUser = async (req, res, next) => {
     const token = User.generateToken(createdUser);
 
     res.status(201).json({ token });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const getUser = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const users = await User.getUserByParam('id', id);
+
+    if (!users.id) return res.status(404).json({ message: 'User does not exist' });
+
+    res.status(200).json(users);
   } catch (error) {
     next(error);
   }
@@ -33,5 +46,6 @@ const getUsers = async (_req, res, next) => {
 
 module.exports = {
   createUser,
+  getUser,
   getUsers,
 };
