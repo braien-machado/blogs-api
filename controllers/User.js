@@ -34,7 +34,7 @@ const getUser = async (req, res, next) => {
   }
 };
 
-const getUsers = async (_req, res, next) => {
+const getAllUsers = async (_req, res, next) => {
   try {
     const users = await User.getAllUsers();
 
@@ -47,5 +47,5 @@ const getUsers = async (_req, res, next) => {
 module.exports = {
   createUser,
   getUser,
-  getUsers,
+  getAllUsers,
 };
