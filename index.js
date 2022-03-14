@@ -1,12 +1,12 @@
 const express = require('express');
 
-const controllers = require('./controllers');
+const userController = require('./controllers/User');
 const middlewares = require('./middlewares');
 
 const app = express();
 app.use(express.json());
 
-app.post('/user', middlewares.validateNewUser, controllers.User);
+app.post('/user', middlewares.validateNewUser, userController.createUser);
 
 app.use(middlewares.errorHandler);
 
