@@ -10,8 +10,8 @@ const getAllUsers = async () => {
   return users;
 };
 
-const getUserByParam = async (param, email) => {
-  const user = await User.findOne({ where: { [param]: email } });
+const getUserByParam = async (column, value) => {
+  const user = await User.findOne({ where: { [column]: value } });
   
   if (user) return user.dataValues;
   return {};
