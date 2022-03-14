@@ -10,6 +10,7 @@ app.use(express.json());
 
 app.get('/user', validateJWT, userController.getUsers);
 app.post('/user', validateUser, userController.createUser);
+app.get('/user/:id', validateJWT, userController.getUser);
 app.post('/login', validateUser, loginController.login);
 
 app.use(errorHandler);
