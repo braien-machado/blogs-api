@@ -1,6 +1,6 @@
 const Post = require('../services/Post');
 
-module.exports = async (req, res, next) => {
+module.exports = async (req, _res, next) => {
   try {
     const { params: { id: postId }, userId } = req;
     const post = await Post.getPostByParam('id', postId);
