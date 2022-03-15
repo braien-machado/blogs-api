@@ -5,13 +5,15 @@ const { User } = require('../models');
 const secret = process.env.JWT_SECRET;
 
 const getAllUsers = async () => {
-  const users = await User.findAll();
+  const users = await User.findAll({ attributes: { exclude: ['password'] } });
 
   return users;
 };
 
 const getUserByParam = async (column, value) => {
-  const user = await User.findOne({ where: { [column]: value } });
+  const user = await User.findOne({
+    where: { [column]: value },
+    attributes: { exclude: ['password'] } });
   
   if (user) return user.dataValues;
   return {};
