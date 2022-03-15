@@ -24,15 +24,13 @@ module.exports = {
           key: 'id',
         },
       },
-      createdAt: {
+      published: {
         allowNull: false,
-        type: Sequelize.DATE,
-        field: 'published',
+        type: 'TIMESTAMP',
       },
-      updatedAt: {
+      updated: {
         allowNull: false,
-        type: Sequelize.DATE,
-        field: 'updated',
+        type: 'TIMESTAMP',
       }
     });
   },
