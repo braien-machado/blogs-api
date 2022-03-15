@@ -45,6 +45,8 @@ const createPost = async (req, res, next) => {
     const { userId } = req;
 
     const { id } = await Post.createPost({ title, content, categoryIds, userId });
+    await Promise.all(categoryIds
+      .map((categoryId) => Post.createPostCategory({ postId: id, categoryId })));
 
     res.status(201).json({ id, title, content, userId });
   } catch (error) {

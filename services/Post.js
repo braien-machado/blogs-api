@@ -1,5 +1,6 @@
 const { Op } = require('sequelize');
 const { BlogPost } = require('../models');
+const { PostCategory } = require('../models');
 
 const getAllPosts = async () => {
   const posts = await BlogPost.findAll({
@@ -33,6 +34,12 @@ const getPostsBySearchTerm = async (string) => {
   return posts;
 };
 
+const createPostCategory = async (newPostCategory) => {
+  const postCategory = await PostCategory.create(newPostCategory);
+
+  return postCategory;
+};
+
 const createPost = async (newPost) => {
   const post = await BlogPost.create(newPost);
 
@@ -40,6 +47,7 @@ const createPost = async (newPost) => {
 };
 
 module.exports = {
+  createPostCategory,
   getPostsBySearchTerm,
   createPost,
   getAllPosts,
