@@ -3,6 +3,7 @@ const express = require('express');
 const categoryController = require('./controllers/Category');
 const userController = require('./controllers/User');
 const loginController = require('./controllers/Login');
+const postController = require('./controllers/Post');
 const { validateUser, errorHandler } = require('./middlewares');
 const validateJWT = require('./auth/validateJWT');
 
@@ -13,10 +14,13 @@ app.post('/login', validateUser, loginController.login);
 
 app.post('/user', validateUser, userController.createUser);
 app.get('/user', validateJWT, userController.getAllUsers);
-app.get('/user/:id', validateJWT, userController.getUser);
+app.get('/user/:id', validateJWT, userController.getUserById);
 
 app.post('/categories', validateJWT, categoryController.createCategory);
 app.get('/categories', validateJWT, categoryController.getAllCategories);
+
+app.get('/post', validateJWT, postController.getAllPosts);
+app.get('/post/:id', validateJWT, postController.getPostById);
 
 app.use(errorHandler);
 
