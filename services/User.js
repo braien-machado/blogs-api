@@ -44,7 +44,12 @@ const validateUser = (object) => {
   return schema.validate(object);
 };
 
+const deleteUser = async (id) => {
+  await User.destroy({ where: { id } });
+};
+
 module.exports = {
+  deleteUser,
   validateUser,
   getUserByParam,
   createUser,

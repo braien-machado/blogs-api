@@ -15,6 +15,7 @@ app.post('/login', middlewares.validateUser, loginController.login);
 app.post('/user', middlewares.validateUser, userController.createUser);
 app.get('/user', validateJWT, userController.getAllUsers);
 app.get('/user/:id', validateJWT, userController.getUserById);
+app.delete('/user/me', validateJWT, userController.deleteUser);
 
 app.post('/categories', validateJWT, categoryController.createCategory);
 app.get('/categories', validateJWT, categoryController.getAllCategories);
