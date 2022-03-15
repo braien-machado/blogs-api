@@ -52,7 +52,12 @@ const updatePost = async (infoToUpdate, id) => {
   });
 };
 
+const deletePost = async (id) => {
+  await BlogPost.destroy({ where: { id } });
+};
+
 module.exports = {
+  deletePost,
   updatePost,
   createPostCategory,
   getPostsBySearchTerm,

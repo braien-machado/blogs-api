@@ -23,7 +23,9 @@ app.get('/post', validateJWT, postController.getAllPosts);
 app.get('/post/search', validateJWT, postController.getPostBySearchTerm);
 app.get('/post/:id', validateJWT, postController.getPostById);
 app.post('/post', validateJWT, middlewares.validatePost, postController.createPost);
-app.put('/post/:id', validateJWT, middlewares.validatePostUpdate, postController.updatePost);
+app.put('/post/:id', validateJWT, middlewares.validateAuthorizedUser,
+  middlewares.validatePostUpdate, postController.updatePost);
+app.delete('/post/:id', validateJWT, middlewares.validateAuthorizedUser, postController.deletePost);
 
 app.use(middlewares.errorHandler);
 
