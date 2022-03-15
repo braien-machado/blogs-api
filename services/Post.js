@@ -46,7 +46,14 @@ const createPost = async (newPost) => {
   return post;
 };
 
+const updatePost = async (infoToUpdate, id) => {
+  await BlogPost.update(infoToUpdate, {
+    where: { id },
+  });
+};
+
 module.exports = {
+  updatePost,
   createPostCategory,
   getPostsBySearchTerm,
   createPost,

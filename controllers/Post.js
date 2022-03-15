@@ -54,8 +54,23 @@ const createPost = async (req, res, next) => {
   }
 };
 
+const updatePost = async (req, res, next) => {
+  try {
+    const { title, content } = req.body;
+    const { id } = req.params;
+
+    await Post.updatePost({ title, content }, id);
+    const { categories } = await Post.getPostByParam('id', id);
+
+    res.status(200).json({ title, content, userId: parseInt(id, 10), categories });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   createPost,
+  updatePost,
   getPostBySearchTerm,
   getPostById,
   getAllPosts,
