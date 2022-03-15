@@ -23,7 +23,24 @@ const getPostById = async (req, res, next) => {
   }
 };
 
+const getPostBySearchTerm = async (req, res, next) => {
+  try {
+    const { q: searchTerm } = req.query;
+    let posts;    
+    if (!searchTerm) {
+      posts = await Post.getAllPosts();
+    } else {
+      posts = await Post.getPostsBySearchTerm(searchTerm);
+    }
+
+    res.status(200).json(posts);
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
+  getPostBySearchTerm,
   getPostById,
   getAllPosts,
 };

@@ -20,6 +20,7 @@ app.post('/categories', validateJWT, categoryController.createCategory);
 app.get('/categories', validateJWT, categoryController.getAllCategories);
 
 app.get('/post', validateJWT, postController.getAllPosts);
+app.get('/post/search', validateJWT, postController.getPostBySearchTerm);
 app.get('/post/:id', validateJWT, postController.getPostById);
 
 app.use(errorHandler);
