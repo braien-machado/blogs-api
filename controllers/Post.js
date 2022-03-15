@@ -10,7 +10,7 @@ const getAllPosts = async (_req, res, next) => {
   }
 };
 
-const getPostById = async (req, res, next) => {
+const getPostById = async (_req, _res, _next) => {
 
 };
 
