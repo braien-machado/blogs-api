@@ -7,7 +7,7 @@ const checkCategories = async (categoryIds) => {
   const isCategoryInvalid = await Promise.all(categoriesPromises)
     .then((values) => values.some((category) => category.id === undefined));
   
-  if (isCategoryInvalid) return { message: '"categoryId" not found' };
+  if (isCategoryInvalid) return { message: '"categoryIds" not found' };
 };
 
 const checkRequiredFieldsForPost = (title, content, categoryIds) => {
@@ -16,8 +16,8 @@ const checkRequiredFieldsForPost = (title, content, categoryIds) => {
       return { message: '"title" is required' };
     case !content:
       return { message: '"content" is required' };
-    case !categoryIds.length:
-      return { message: '"categoryId" is required' };
+    case !categoryIds || !categoryIds.length:
+      return { message: '"categoryIds" is required' };
     default:
   }
 };
