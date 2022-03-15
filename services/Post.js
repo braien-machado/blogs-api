@@ -33,8 +33,15 @@ const getPostsBySearchTerm = async (string) => {
   return posts;
 };
 
+const createPost = async (newPost) => {
+  const post = await BlogPost.create(newPost);
+
+  return post;
+};
+
 module.exports = {
   getPostsBySearchTerm,
+  createPost,
   getAllPosts,
   getPostByParam,
 };

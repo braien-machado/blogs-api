@@ -39,7 +39,21 @@ const getPostBySearchTerm = async (req, res, next) => {
   }
 };
 
+const createPost = async (req, res, next) => {
+  try {
+    const { title, content, categoryIds } = req.body;
+    const { userId } = req;
+
+    const { id } = await Post.createPost({ title, content, categoryIds, userId });
+
+    res.status(201).json({ id, title, content, userId });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
+  createPost,
   getPostBySearchTerm,
   getPostById,
   getAllPosts,
