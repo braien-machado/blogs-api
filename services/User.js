@@ -10,10 +10,10 @@ const getAllUsers = async () => {
   return users;
 };
 
-const getUserByParam = async (column, value) => {
+const getUserByParam = async (column, value, array) => {
   const user = await User.findOne({
     where: { [column]: value },
-    attributes: { exclude: ['password'] } });
+    attributes: { exclude: array } });
   
   if (user) return user.dataValues;
   return {};

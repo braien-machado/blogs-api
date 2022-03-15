@@ -24,7 +24,7 @@ const createUser = async (req, res, next) => {
 const getUserById = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const users = await User.getUserByParam('id', id);
+    const users = await User.getUserByParam('id', id, ['password']);
 
     if (!users.id) return res.status(404).json({ message: 'User does not exist' });
 
