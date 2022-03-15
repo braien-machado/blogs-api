@@ -9,10 +9,11 @@ const getAllPosts = async () => {
   return posts;
 };
 
-const getPostByParam = async (column, value) => {
+const getPostByParam = async (column, value, transaction) => {
   const post = await BlogPost.findOne({
     where: { [column]: value },
-    include: ['user', { association: 'categories', through: { attributes: [] } }] });
+    include: ['user', { association: 'categories', through: { attributes: [] } }] },
+    { transaction });
 
   return post;
 };
@@ -34,22 +35,22 @@ const getPostsBySearchTerm = async (string) => {
   return posts;
 };
 
-const createPostCategory = async (newPostCategory) => {
-  const postCategory = await PostCategory.create(newPostCategory);
+const createPostCategory = async (newPostCategory, transaction) => {
+  const postCategory = await PostCategory.create(newPostCategory, { transaction });
 
   return postCategory;
 };
 
-const createPost = async (newPost) => {
-  const post = await BlogPost.create(newPost);
+const createPost = async (newPost, transaction) => {
+  const post = await BlogPost.create(newPost, { transaction });
 
   return post;
 };
 
-const updatePost = async (infoToUpdate, id) => {
+const updatePost = async (infoToUpdate, id, transaction) => {
   await BlogPost.update(infoToUpdate, {
     where: { id },
-  });
+  }, { transaction });
 };
 
 const deletePost = async (id) => {
