@@ -7,6 +7,15 @@ const getAllPosts = async () => {
   return posts;
 };
 
+const getPostByParam = async (column, value) => {
+  const post = await BlogPost.findOne({
+    where: { [column]: value },
+    include: ['user', { association: 'categories', through: { attributes: [] } }] });
+
+  return post;
+};
+
 module.exports = {
   getAllPosts,
+  getPostByParam,
 };
