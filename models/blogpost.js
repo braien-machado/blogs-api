@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
     published: { type: 'TIMESTAMPS', defaultValue: sequelize.literal('CURRENT_TIMESTAMP') },
     updated: {
       type: 'TIMESTAMPS',
-      defaultValue: sequelize.literal('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'),
+      defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
     },
   }, { tableName: 'BlogPosts', timestamps: false });
 
