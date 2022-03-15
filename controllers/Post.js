@@ -73,7 +73,7 @@ const deletePost = async (req, res, next) => {
     const { id } = req.params;
     await Post.deletePost(id);
 
-    res.status(204).json();
+    res.status(204).send();
   } catch (error) {
     next(error);
   }
