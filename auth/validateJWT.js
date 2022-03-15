@@ -18,6 +18,7 @@ module.exports = async (req, res, next) => {
 
     if (!user) return res.status(401).json({ message: 'Expired or invalid token' });
 
+    req.userId = user.id;
     next();
   } catch (error) {
     error.code = 401;
