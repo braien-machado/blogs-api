@@ -3,12 +3,7 @@ module.exports = (sequelize, DataTypes) => {
     title: DataTypes.STRING,
     content: DataTypes.STRING,
     userId: { type: DataTypes.INTEGER, foreignKey: true },
-    published: { type: 'TIMESTAMPS', defaultValue: sequelize.literal('CURRENT_TIMESTAMP') },
-    updated: {
-      type: 'TIMESTAMPS',
-      defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
-    },
-  }, { tableName: 'BlogPosts', timestamps: false });
+  }, { tableName: 'BlogPosts', createdAt: 'published', updatedAt: 'updated' });
 
   BlogPost.associate = (models) => {
     BlogPost.belongsTo(models.User, {
